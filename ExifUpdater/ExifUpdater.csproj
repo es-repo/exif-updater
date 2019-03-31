@@ -90,6 +90,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ImageMetadataUpdateResult.cs" />
+    <Compile Include="InputMetataDataReader.cs" />
+    <Compile Include="InputMetataDataRecord.cs" />
     <Compile Include="TextBoxLogger.cs" />
     <Compile Include="UpdateMetadataProgressEntry.cs" />
     <Page Include="FileInput.xaml">

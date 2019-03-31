@@ -87,7 +87,7 @@ namespace ExifUpdater
 					_logger.LogUpdateMetadataProgressEntry(entry);
 				});
 
-			await Task.Run(() => UpdateMetada(FilesToProcess, progressReport));
+			await Task.Run(() => UpdateMetada(FilesToProcess, KeywordsFile, progressReport));
 
 			KeywordsFileInput.IsEnabled = true;
 			FilesToProcessFolderInput.IsEnabled = true;
@@ -104,20 +104,33 @@ namespace ExifUpdater
 			return File.Exists(keywordsFile) ? keywordsFile : null;
 		}
 
-		private static void UpdateMetada(string[] files, IProgress<UpdateMetadataProgressEntry> progressReport)
+		private static void UpdateMetada(string[] files, string keywordsFile, IProgress<UpdateMetadataProgressEntry> progressReport)
 		{
-			if (files == null)
+			if (files == null || keywordsFile == null)
 				return;
 
-			for(int i = 0; i < files.Length; i++)
+			Dictionary<string, InputMetataDataRecord> inputMetataDataRecords = InputMetataDataReader.Read(keywordsFile)
+				.ToDictionary(r => r.FileName, r => r);
+
+			for (int i = 0; i < files.Length; i++)
 			{
 				string f = files[i];
-				var result = ImageMetadataUpdater.Update(f, "My Title V2", new string[] { "My keyword 1 V2", "My keyword 2 V2" });
+				string name = Path.GetFileNameWithoutExtension(f);
+
+				ImageMetadataUpdateResult updateResult = new ImageMetadataUpdateResult { Success = true }; 
+				if (inputMetataDataRecords.ContainsKey(name))
+				{
+					InputMetataDataRecord inputMetataDataRecord = inputMetataDataRecords[name];
+					updateResult = ImageMetadataUpdater.Update(f, 
+						inputMetataDataRecord.Title,
+						inputMetataDataRecord.Keywords);
+				}
+
 				UpdateMetadataProgressEntry progressEntry = new UpdateMetadataProgressEntry
 				{
 					FileIndex = i,
 					File = f,
-					UpdateResult = result
+					UpdateResult = updateResult
 				};
 				progressReport.Report(progressEntry);
 			}
