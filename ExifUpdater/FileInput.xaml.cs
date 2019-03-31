@@ -14,14 +14,18 @@ namespace ExifUpdater
 
 		public string FilePath { get { return GetValue(FilePathProperty) as string; } set { SetValue(FilePathProperty, value); } }
 
-		//public over string IsEnabled { get { return GetValue(IsEnabledProperty) as string; } set { SetValue(IsEnabledProperty, value); } }
-
 		public event EventHandler FileSelected;
-
 
 		public FileInput()
 		{
 			InitializeComponent();
+		}
+
+		private void OnTextChanged(object sender, EventArgs e)
+		{
+			var textBox = (System.Windows.Controls.TextBox)sender;
+			FilePath = textBox.Text;
+			FileSelected?.Invoke(this, EventArgs.Empty);
 		}
 
 		private void Browse(object sender, RoutedEventArgs e)

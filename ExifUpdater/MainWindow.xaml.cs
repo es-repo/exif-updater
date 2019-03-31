@@ -37,8 +37,9 @@ namespace ExifUpdater
 		private void UpdateInputUIState()
 		{
 			KeywordsFileInput.FilePath = KeywordsFile ?? "";
-			ImagesFoundLabel.Content = $"Найдено изображений: {FilesToProcess.Length}";
-			MetadataUpdateButton.IsEnabled = !string.IsNullOrWhiteSpace(KeywordsFile) && FilesToProcess.Length > 0;
+			ImagesFoundLabel.Content = FilesToProcess == null ? "" : $"Найдено изображений: {FilesToProcess.Length}";
+			MetadataUpdateButton.IsEnabled = 
+				!string.IsNullOrWhiteSpace(KeywordsFile) && File.Exists(KeywordsFile) && FilesToProcess != null && FilesToProcess.Length > 0;
 			ProgressBar.Value = 0;
 			FileProcessedLabel.Content = "";
 		}
@@ -47,7 +48,9 @@ namespace ExifUpdater
 		{
 			string folderPath = ((FolderInput)sender).FolderPath;
 			FilesToProcess = FindFilesToProcess(folderPath).ToArray();
-			KeywordsFile = FindKeywordsFile(folderPath);
+			string keywordsFile = FindKeywordsFile(folderPath);
+			if (keywordsFile != null)
+				KeywordsFile = keywordsFile;
 
 			UpdateInputUIState();
 		}
@@ -55,7 +58,7 @@ namespace ExifUpdater
 		private void OnKeywordsFileSelected(object sender, EventArgs e)
 		{
 			KeywordsFile = ((FileInput)sender).FilePath;
-			
+
 			UpdateInputUIState();
 		}
 
@@ -92,7 +95,7 @@ namespace ExifUpdater
 
 		private static IEnumerable<string> FindFilesToProcess(string folderPath)
 		{
-			return Directory.GetFiles(folderPath, "*.jpg");
+			return Directory.Exists(folderPath) ? Directory.GetFiles(folderPath, "*.jpg") : new string[] { };
 		}
 
 		private static string FindKeywordsFile(string folderPath)

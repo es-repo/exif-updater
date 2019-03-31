@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Forms;
 
@@ -18,6 +20,13 @@ namespace ExifUpdater
 
 		public FolderInput() { InitializeComponent(); }
 
+		private void OnTextChanged(object sender, EventArgs e)
+		{
+			var textBox = (System.Windows.Controls.TextBox)sender;
+			FolderPath = textBox.Text;
+			FolderSelected?.Invoke(this, EventArgs.Empty);
+		}
+
 		private void Browse(object sender, RoutedEventArgs e)
 		{
 			using (FolderBrowserDialog dlg = new FolderBrowserDialog())
@@ -31,8 +40,6 @@ namespace ExifUpdater
 					BindingExpression be = GetBindingExpression(TextProperty);
 					if (be != null)
 						be.UpdateSource();
-
-					FolderSelected?.Invoke(this, EventArgs.Empty);
 				}
 			}
 		}
