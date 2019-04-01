@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Forms;
 
 namespace ExifUpdater
 {
@@ -29,14 +27,13 @@ namespace ExifUpdater
 
 		private void Browse(object sender, RoutedEventArgs e)
 		{
-			using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+			using (CommonOpenFileDialog dlg = new CommonOpenFileDialog())
 			{
-				dlg.SelectedPath = FolderPath;
-				dlg.ShowNewFolderButton = false;
-				DialogResult result = dlg.ShowDialog();
-				if (result == DialogResult.OK)
+				dlg.IsFolderPicker = true;
+				var result = dlg.ShowDialog();
+				if (result == CommonFileDialogResult.Ok)
 				{
-					FolderPath = dlg.SelectedPath;
+					FolderPath = dlg.FileName;
 					BindingExpression be = GetBindingExpression(TextProperty);
 					if (be != null)
 						be.UpdateSource();
