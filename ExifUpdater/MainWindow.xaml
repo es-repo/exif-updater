@@ -5,7 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:ExifUpdater="clr-namespace:ExifUpdater"
   mc:Ignorable="d"
-  Title="EXIF-Updater v0.2" SizeToContent="Height" Width="600"
+  Title="EXIF-Updater v0.3" SizeToContent="Height" Width="600"
   Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
   <Grid Margin="20">
     <Grid.RowDefinitions>

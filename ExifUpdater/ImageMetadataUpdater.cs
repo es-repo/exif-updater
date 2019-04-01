@@ -16,19 +16,6 @@ namespace ExifUpdater
 
 			try
 			{
-				UpdateExif(filePath, title, keywordsJoined);
-			}
-			catch(Exception ex)
-			{
-				return new ImageMetadataUpdateResult
-				{
-					Success = false,
-					Error = $"Can't update EXIF metadata: {ex.Message}"
-				};
-			}
-
-			try
-			{
 				UpdateIptc(filePath, title, keywordsJoined);
 			}
 			catch (Exception ex)
@@ -37,6 +24,19 @@ namespace ExifUpdater
 				{
 					Success = false,
 					Error = $"Can't update IPTC metadata. Error: {ex.Message}"
+				};
+			}
+
+			try
+			{
+				UpdateExif(filePath, title, keywordsJoined);
+			}
+			catch (Exception ex)
+			{
+				return new ImageMetadataUpdateResult
+				{
+					Success = false,
+					Error = $"Can't update EXIF metadata: {ex.Message}"
 				};
 			}
 
@@ -66,7 +66,7 @@ namespace ExifUpdater
 			p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 			p.StartInfo.Arguments = $"-q -overwrite_original -iptc:caption-abstract=\"{title}\" -iptc:keywords=\"{keywords}\" {filePath}";
 			p.Start();
-			p.WaitForExit();
+			p.WaitForExit(30000);
 		}
 	}
 }

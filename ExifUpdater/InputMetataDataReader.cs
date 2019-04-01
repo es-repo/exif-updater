@@ -32,6 +32,7 @@ namespace ExifUpdater
 							: keywordsJoined.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
 								.Select(s => s.Trim())
 								.Where(s => s != "")
+								.Distinct()
 								.ToArray();
 
 						yield return new InputMetataDataRecord
