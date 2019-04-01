@@ -12,6 +12,8 @@ namespace ExifUpdater
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		#region Exif Updater
+
 		private const string KeywordsDefaultFileName = "keywords.txt";
 
 		private TextBoxLogger _logger;
@@ -135,5 +137,36 @@ namespace ExifUpdater
 				progressReport.Report(progressEntry);
 			}
 		}
+
+		#endregion
+
+		#region Keywords Editor
+
+		private void OnPasteKeywordsButtonClick(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OnPasteKeywordsToExistButtonClick(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OnCopyKeywordsButtonClick(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OnAddKeywordsButtonClick(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OnSortAndDistinctButtonClick(object sender, EventArgs e)
+		{
+
+		}
+
+		#endregion
 	}
 }

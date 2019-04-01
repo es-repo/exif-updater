@@ -5,52 +5,132 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:ExifUpdater="clr-namespace:ExifUpdater"
   mc:Ignorable="d"
-  Title="EXIF-Updater v0.3" SizeToContent="Height" Width="600"
+  Title="EXIF-Updater v0.3" SizeToContent="Height" Width="1000"
   Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-  <Grid Margin="20">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    
-    <DockPanel Grid.Row="0" Grid.Column="0" Margin="0 0 0 30">
-      <Label Content="Рабочая папка:" DockPanel.Dock="Top"/>
-      <Label x:Name="ImagesFoundLabel" Content="Найдено изображений: 0" DockPanel.Dock="Bottom" HorizontalContentAlignment="Center"/>
-      <ExifUpdater:FolderInput 
+
+  <Grid>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid Margin="20" Grid.Column="0">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <DockPanel Grid.Row="0" Grid.Column="0" Margin="0 0 0 30">
+        <Label Content="Рабочая папка:" DockPanel.Dock="Top"/>
+        <Label x:Name="ImagesFoundLabel" Content="Найдено изображений: 0" DockPanel.Dock="Bottom" HorizontalContentAlignment="Center"/>
+        <ExifUpdater:FolderInput 
         DockPanel.Dock="Bottom"
         x:Name="FilesToProcessFolderInput"
         FolderSelected="OnFolderSelected"/>
-    </DockPanel>
+      </DockPanel>
 
-    <DockPanel Grid.Row="1" Grid.Column="0" Margin="0 0 0 30">
-      <Label Content="Выберите файл с кейвордами:" DockPanel.Dock="Top"/>
-      <ExifUpdater:FileInput
+      <DockPanel Grid.Row="1" Grid.Column="0" Margin="0 0 0 30">
+        <Label Content="Выберите файл с кейвордами:" DockPanel.Dock="Top"/>
+        <ExifUpdater:FileInput
         DockPanel.Dock="Bottom"
         x:Name="KeywordsFileInput" 
         FileSelected="OnKeywordsFileSelected"/>
-    </DockPanel>
+      </DockPanel>
 
-    <DockPanel Grid.Row="2" Grid.Column="0">
-      <Button Margin="0" Padding="10 5 10 5" FontWeight="Bold" Width="120" DockPanel.Dock="Top" HorizontalContentAlignment="Center"
+      <DockPanel Grid.Row="2" Grid.Column="0">
+        <Button Padding="10 5 10 5" FontWeight="Bold" Width="120" DockPanel.Dock="Top" HorizontalContentAlignment="Center"
               Click="OnMetadataUpdateClick"
               IsEnabled="False"
               x:Name="MetadataUpdateButton">Обновить EXIF</Button>
-      <Label x:Name="FileProcessedLabel" Content=" " DockPanel.Dock="Bottom" HorizontalContentAlignment="Center"/>
-      <ProgressBar x:Name="ProgressBar" Minimum="0" DockPanel.Dock="Bottom" Height="20" Margin="0 30 0 0" />
-    </DockPanel>
-
-    <DockPanel Grid.Row="3" Grid.Column="0">
-      <DockPanel DockPanel.Dock="Top">
-        <Label Content="Лог:" />
-        <Label x:Name="HasErrorsLabel" Visibility="Hidden" Content="(есть ошибки)" Foreground="Red"/>
+        <Label x:Name="FileProcessedLabel" Content=" " DockPanel.Dock="Bottom" HorizontalContentAlignment="Center"/>
+        <ProgressBar x:Name="ProgressBar" Minimum="0" DockPanel.Dock="Bottom" Height="20" Margin="0 30 0 0" />
       </DockPanel>
-      
-      <TextBox x:Name="LogTextBox" TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" 
-               VerticalScrollBarVisibility="Auto" MinHeight="60"
+
+      <DockPanel Grid.Row="3" Grid.Column="0">
+        <DockPanel DockPanel.Dock="Top">
+          <Label Content="Лог:" />
+          <Label x:Name="HasErrorsLabel" Visibility="Hidden" Content="(есть ошибки)" Foreground="Red"/>
+        </DockPanel>
+
+        <TextBox x:Name="LogTextBox" TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" 
+               VerticalScrollBarVisibility="Auto" MinHeight="80"
                IsReadOnly="True"/>
-    </DockPanel>
-    
+      </DockPanel>
+
+    </Grid>
+
+    <GridSplitter HorizontalAlignment="Right" 
+                  VerticalAlignment="Stretch" 
+                  Grid.Column="1" ResizeBehavior="PreviousAndNext"
+                  Width="5" Background="#FFBCBCBC"/>
+
+    <Grid Margin="20" Grid.Column="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="1*" />
+      </Grid.RowDefinitions>
+
+      <DockPanel Grid.Row="0">
+        <Label Content="KEYWORDS EDITOR" VerticalContentAlignment="Center" />
+      </DockPanel>
+
+      <DockPanel Grid.Row="0">
+        <Label x:Name="KeywordsCountLabel" Content="48" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+      </DockPanel>
+
+      <TextBox Grid.Row="1" x:Name="KeywordsTextBox" TextWrapping="Wrap" FontSize="16" Margin="0 0 0 15"
+        HorizontalScrollBarVisibility="Disabled" 
+        VerticalScrollBarVisibility="Auto" Text="pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus mauris a diam maecenas sed enim ut sem viverra aliquet eget sit amet tellus cras adipiscing enim eu turpis egestas pretium aenean pharetra"/>
+
+      <Grid Grid.Row="2" Margin="0 0 0 15">
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1*"/>
+          <ColumnDefinition Width="2*"/>
+          <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Padding="0 5 0 5" Margin="0 0 20 0" Grid.Column="0" FontWeight="DemiBold"
+              Click="OnPasteKeywordsButtonClick" Width="Auto"
+              x:Name="PasteKeywordsButton">Paste</Button>
+
+        <Button Padding="0 5 0 5" Margin="0 0 20 0" FontWeight="DemiBold" Grid.Column="1"
+              Click="OnPasteKeywordsToExistButtonClick" Width="Auto"
+              x:Name="PasteKeywordsToExistButton">Paste to exist</Button>
+
+        <Button Padding="0 5 0 5" FontWeight="DemiBold" Grid.Column="2"
+                Click="OnCopyKeywordsButtonClick" Width="Auto" Background="#c0eb91"
+                x:Name="CopyKeywordsButton">Copy</Button>
+      </Grid>
+
+      <Grid Grid.Row="3" Margin="0 0 0 15">
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Padding="40 5 40 5" FontWeight="DemiBold" Width="Auto"  Grid.Column="0" HorizontalAlignment="Left"
+              Click="OnSortAndDistinctButtonClick" MaxWidth="300"
+              x:Name="SortAndDistinctButton">Sort and delete Duplicates</Button>
+
+        <Button Padding="0 0 0 0" Width="60" Grid.Column="1" FontSize="18"
+              Click="OnAddKeywordsButtonClick" FontFamily="Segoe UI Symbol" Content="&#xE110;" Foreground="Gray" FontWeight="ExtraBold"
+              x:Name="AddKeywordsButton"></Button>
+      </Grid>
+
+      <TextBox Grid.Row="5" x:Name="AdditionalKeywordsTextBox" TextWrapping="Wrap" FontSize="16"
+        HorizontalScrollBarVisibility="Disabled" 
+        VerticalScrollBarVisibility="Auto"/>
+
+    </Grid>
   </Grid>
+
 </Window>
