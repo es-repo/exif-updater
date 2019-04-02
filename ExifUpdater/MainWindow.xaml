@@ -5,7 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:ExifUpdater="clr-namespace:ExifUpdater"
   mc:Ignorable="d"
-  Title="EXIF-Updater v0.3" SizeToContent="Height" Width="1000"
+  Title="EXIF-Updater v0.4" SizeToContent="Height" Width="1000"
   Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 
   <Grid>
@@ -57,7 +57,7 @@
         </DockPanel>
 
         <TextBox x:Name="LogTextBox" TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" 
-               VerticalScrollBarVisibility="Auto" MinHeight="80"
+               VerticalScrollBarVisibility="Auto" MinHeight="140"
                IsReadOnly="True"/>
       </DockPanel>
 
@@ -82,12 +82,12 @@
       </DockPanel>
 
       <DockPanel Grid.Row="0">
-        <Label x:Name="KeywordsCountLabel" Content="48" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label x:Name="KeywordsCountLabel" Content=" " FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
       </DockPanel>
 
-      <TextBox Grid.Row="1" x:Name="KeywordsTextBox" TextWrapping="Wrap" FontSize="16" Margin="0 0 0 15"
-        HorizontalScrollBarVisibility="Disabled" 
-        VerticalScrollBarVisibility="Auto" Text="pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit amet purus gravida quis blandit turpis cursus in hac habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat mauris nunc congue nisi vitae suscipit tellus mauris a diam maecenas sed enim ut sem viverra aliquet eget sit amet tellus cras adipiscing enim eu turpis egestas pretium aenean pharetra"/>
+      <TextBox Grid.Row="1" x:Name="KeywordsTextBox" TextWrapping="Wrap" FontSize="15" Margin="0 0 0 15"
+        HorizontalScrollBarVisibility="Disabled" TextChanged="OnKeywordsTextBoxChanged"
+        VerticalScrollBarVisibility="Auto" Text=""/>
 
       <Grid Grid.Row="2" Margin="0 0 0 15">
 
@@ -126,7 +126,7 @@
               x:Name="AddKeywordsButton"></Button>
       </Grid>
 
-      <TextBox Grid.Row="5" x:Name="AdditionalKeywordsTextBox" TextWrapping="Wrap" FontSize="16"
+      <TextBox Grid.Row="5" x:Name="AdditionalKeywordsTextBox" TextWrapping="Wrap" FontSize="15"
         HorizontalScrollBarVisibility="Disabled" 
         VerticalScrollBarVisibility="Auto"/>
 

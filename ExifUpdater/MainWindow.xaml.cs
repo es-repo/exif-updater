@@ -142,29 +142,44 @@ namespace ExifUpdater
 
 		#region Keywords Editor
 
+		private void OnKeywordsTextBoxChanged(object sender, EventArgs e)
+		{
+			int count = KeywordsUtils.CountJoined(KeywordsTextBox.Text);
+			KeywordsCountLabel.Content = count.ToString();
+		}
+
 		private void OnPasteKeywordsButtonClick(object sender, EventArgs e)
 		{
-
+			string fromClipboard = Clipboard.GetText();
+			string keywordsJoined = KeywordsUtils.NormilizeJoined(fromClipboard);
+			KeywordsTextBox.Text = keywordsJoined;
 		}
 
 		private void OnPasteKeywordsToExistButtonClick(object sender, EventArgs e)
 		{
+			string fromClipboard = Clipboard.GetText();
+			if (string.IsNullOrWhiteSpace(fromClipboard))
+			{
+				return;
+			}
 
+			KeywordsTextBox.Text = KeywordsUtils.ConcatJoined(KeywordsTextBox.Text, fromClipboard);
 		}
 
 		private void OnCopyKeywordsButtonClick(object sender, EventArgs e)
 		{
-
+			Clipboard.SetText(KeywordsTextBox.Text);
 		}
 
 		private void OnAddKeywordsButtonClick(object sender, EventArgs e)
 		{
-
+			KeywordsTextBox.Text = KeywordsUtils.ConcatJoined(KeywordsTextBox.Text, AdditionalKeywordsTextBox.Text);
 		}
 
 		private void OnSortAndDistinctButtonClick(object sender, EventArgs e)
 		{
-
+			string sortedJoined = KeywordsUtils.SortAndRemoveDuplicatesJoined(KeywordsTextBox.Text);
+			KeywordsTextBox.Text = sortedJoined;
 		}
 
 		#endregion
