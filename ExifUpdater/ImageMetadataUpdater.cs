@@ -64,7 +64,7 @@ namespace ExifUpdater
 			p.StartInfo = new ProcessStartInfo(ExifToolPath);
 			p.StartInfo.CreateNoWindow = true;
 			p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-			p.StartInfo.Arguments = $"-q -overwrite_original -iptc:caption-abstract=\"{title}\" -iptc:keywords=\"{keywords}\" {filePath}";
+			p.StartInfo.Arguments = $"-q -overwrite_original -iptc:caption-abstract=\"{title}\" -iptc:keywords=\"{keywords}\" \"{filePath}\"";
 			p.Start();
 			p.WaitForExit(30000);
 		}
