@@ -63,9 +63,11 @@ namespace ExifUpdater
 			int rangeStart = int.Parse(parts[0]);
 			int rangeEnd = int.Parse(parts[1]);
 
+			int len = parts[0].Length;
+
 			for(int i = rangeStart; i <= rangeEnd; i++)
 			{
-				yield return i < 10 ? "0" + i : i.ToString();
+				yield return i.ToString().PadLeft(len, '0');
 			}
 		}
 
